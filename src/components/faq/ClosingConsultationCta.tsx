@@ -67,7 +67,7 @@ export function ClosingConsultationCta() {
     <section
       id="consultation-cta"
       ref={rootRef}
-      className="relative isolate overflow-hidden"
+      className="closing-cta relative isolate overflow-hidden"
       aria-labelledby="closing-cta-title"
     >
       <div className="absolute inset-0 -z-10 overflow-hidden">
@@ -75,41 +75,33 @@ export function ClosingConsultationCta() {
           src={CLOSING_CTA_IMAGE}
           alt=""
           aria-hidden
-          className="cta-bg-scale h-full w-full object-cover object-[68%_center] md:object-[72%_center]"
+          className="cta-bg-scale closing-cta-bg h-full w-full object-cover"
         />
-        <div
-          className="absolute inset-0 bg-gradient-to-r from-[rgba(10,55,55,0.9)] via-[rgba(10,55,55,0.55)] to-[rgba(10,55,55,0.18)] max-md:from-[rgba(10,55,55,0.92)] max-md:via-[rgba(10,55,55,0.72)] max-md:to-[rgba(10,55,55,0.45)]"
-          aria-hidden
-        />
+        <div className="closing-cta-overlay absolute inset-0" aria-hidden />
       </div>
 
-      <Container className="relative flex min-h-[min(88svh,560px)] max-w-[1280px] items-center px-5 py-16 md:min-h-[560px] md:px-12 md:py-20 lg:min-h-[580px] lg:px-16">
-        <div className="max-w-xl text-left">
-          <p className="cta-fade text-[12px] font-semibold tracking-[0.18em] text-white/75 uppercase md:text-[13px]">
-            {CLOSING_CTA_COPY.eyebrow}
-          </p>
+      <Container className="closing-cta-shell relative">
+        <div className="closing-cta-copy text-left">
+          <p className="cta-fade closing-cta-eyebrow">{CLOSING_CTA_COPY.eyebrow}</p>
 
-          <h2
-            id="closing-cta-title"
-            className="cta-fade mt-4 text-[clamp(2.125rem,4.5vw,3.5rem)] font-semibold tracking-tight text-white"
-            style={{ lineHeight: 1.2 }}
-          >
-            {CLOSING_CTA_COPY.headline.split('\n').map((line) => (
-              <span key={line} className="block">
-                {line}
-              </span>
-            ))}
+          <h2 id="closing-cta-title" className="cta-fade closing-cta-title">
+            내 EV3 견적,
+            <br className="closing-cta-title-break" />
+            <span className="closing-cta-title-rest">
+              {' '}
+              이제 상담으로 <span className="closing-cta-nowrap">완성하세요.</span>
+            </span>
           </h2>
 
-          <p className="cta-fade mt-4 max-w-md text-[0.95rem] leading-[1.7] whitespace-pre-line text-white/82 md:text-[1.05rem]">
-            {CLOSING_CTA_COPY.description}
+          <p className="cta-fade closing-cta-desc">
+            선택하신 조건을 바탕으로 실제 적용 가능한 렌트 조건을 확인해 보세요.
           </p>
 
-          <div className="cta-fade mt-8 flex flex-col items-start gap-4 sm:mt-10">
+          <div className="cta-fade closing-cta-actions">
             <button
               type="button"
               onClick={openConsultationModal}
-              className="group inline-flex min-h-[3.5rem] w-full items-center justify-center gap-2 rounded-[3px] bg-[#F5F4F0] px-8 py-[1.15rem] text-base font-semibold text-[#14282A] transition-[background-color] duration-[250ms] hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:w-auto sm:px-[2.125rem]"
+              className="group closing-cta-primary"
             >
               <span>{CLOSING_CTA_COPY.primaryLabel}</span>
               <span
@@ -123,7 +115,7 @@ export function ClosingConsultationCta() {
             <button
               type="button"
               onClick={() => scrollToSection('quote')}
-              className="group inline-flex items-center gap-2 border-b border-white/55 pb-1 text-[0.95rem] font-medium text-white transition-colors duration-[250ms] hover:border-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+              className="group closing-cta-secondary"
             >
               <span>{CLOSING_CTA_COPY.secondaryLabel}</span>
               <span

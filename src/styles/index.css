@@ -210,6 +210,11 @@ img {
   gap: clamp(1rem, 2.5vw, 2rem);
 }
 
+.kv-copy-text {
+  /* 설명 문구가 자연스럽게 2줄로 유지되도록 폭을 여유 있게 */
+  max-width: min(100%, clamp(19rem, 58vw, 42rem));
+}
+
 .kv-eyebrow {
   margin: 0;
   font-size: clamp(0.75rem, 0.7rem + 0.2vw, 0.8125rem);
@@ -221,19 +226,29 @@ img {
 
 .kv-headline {
   margin: clamp(0.55rem, 1.2vw, 0.85rem) 0 0;
-  font-size: clamp(1.75rem, 1.2rem + 2.4vw, 3rem);
+  font-size: clamp(1.75rem, 1.15rem + 2.2vw, 3rem);
   font-weight: 700;
-  line-height: 1.18;
+  line-height: 1.22;
   letter-spacing: -0.04em;
   color: #14282a;
+  word-break: keep-all;
+  overflow-wrap: normal;
+  text-wrap: pretty;
 }
 
 .kv-desc {
   margin: clamp(0.85rem, 1.8vw, 1.15rem) 0 0;
-  max-width: 36rem;
-  font-size: clamp(0.9375rem, 0.88rem + 0.35vw, 1.125rem);
-  line-height: 1.65;
+  max-width: min(100%, 36rem);
+  font-size: clamp(0.9375rem, 0.88rem + 0.3vw, 1.125rem);
+  line-height: 1.7;
   color: #596966;
+  word-break: keep-all;
+  overflow-wrap: normal;
+  text-wrap: pretty;
+}
+
+.kv-nowrap {
+  white-space: nowrap;
 }
 
 .kv-cta-btn {
@@ -346,5 +361,179 @@ img {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/**
+ * Closing CTA — 유동 타이포·너비 (고아 글자 방지)
+ */
+.closing-cta {
+  overflow-x: hidden;
+}
+
+.closing-cta-bg {
+  object-position: 68% center;
+}
+
+.closing-cta-overlay {
+  background: linear-gradient(
+    90deg,
+    rgba(10, 55, 55, 0.92) 0%,
+    rgba(10, 55, 55, 0.72) 42%,
+    rgba(10, 55, 55, 0.28) 100%
+  );
+}
+
+.closing-cta-shell {
+  display: flex;
+  min-height: clamp(28rem, 72vw, 36.25rem);
+  align-items: center;
+  padding-block: clamp(3.5rem, 8vw, 5rem);
+  padding-inline: clamp(0.25rem, 1vw, 1rem);
+}
+
+.closing-cta-copy {
+  /* 2줄 제목(완성하세요. 포함)이 잘리지 않도록 문구 길이에 맞춤 */
+  width: min(100%, clamp(18rem, 56vw, 36.5rem));
+  max-width: 100%;
+}
+
+.closing-cta-eyebrow {
+  margin: 0;
+  font-size: clamp(0.75rem, 0.7rem + 0.15vw, 0.8125rem);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 0.75);
+}
+
+.closing-cta-title {
+  margin: clamp(0.85rem, 1.5vw, 1.1rem) 0 0;
+  /* 강한 타이포 유지 + 중간 폭에서 2줄이 넘치지 않도록 유동 스케일 */
+  font-size: clamp(1.75rem, 0.95rem + 2.55vw, 3.5rem);
+  font-weight: 600;
+  line-height: 1.22;
+  letter-spacing: -0.03em;
+  color: #fff;
+  word-break: keep-all;
+  overflow-wrap: normal;
+  text-wrap: pretty;
+}
+
+.closing-cta-title-break {
+  display: none;
+}
+
+.closing-cta-nowrap {
+  white-space: nowrap;
+}
+
+.closing-cta-desc {
+  margin: clamp(0.9rem, 1.6vw, 1.15rem) 0 0;
+  max-width: min(100%, 28rem);
+  font-size: clamp(0.9375rem, 0.9rem + 0.25vw, 1.05rem);
+  line-height: 1.7;
+  color: rgb(255 255 255 / 0.82);
+  word-break: keep-all;
+  overflow-wrap: normal;
+  text-wrap: pretty;
+}
+
+.closing-cta-actions {
+  display: flex;
+  margin-top: clamp(1.75rem, 4vw, 2.5rem);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.closing-cta-primary {
+  display: inline-flex;
+  width: 100%;
+  min-height: 3.5rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  border-radius: 3px;
+  background: #f5f4f0;
+  padding-inline: clamp(1.5rem, 3vw, 2.125rem);
+  font-size: 1rem;
+  font-weight: 600;
+  color: #14282a;
+  transition: background-color 250ms ease;
+}
+
+.closing-cta-primary:hover {
+  background: #fff;
+}
+
+.closing-cta-primary:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.closing-cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 1px solid rgb(255 255 255 / 0.55);
+  padding-bottom: 0.2rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #fff;
+  transition: border-color 250ms ease;
+}
+
+.closing-cta-secondary:hover {
+  border-bottom-color: #fff;
+}
+
+.closing-cta-secondary:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 4px;
+}
+
+@media (min-width: 640px) {
+  .closing-cta-primary {
+    width: auto;
+  }
+}
+
+/* 데스크톱: 의도된 2줄 — 각 줄은 내부에서 끊기지 않도록 */
+@media (min-width: 768px) {
+  .closing-cta-bg {
+    object-position: 72% center;
+  }
+
+  .closing-cta-overlay {
+    background: linear-gradient(
+      90deg,
+      rgba(10, 55, 55, 0.9) 0%,
+      rgba(10, 55, 55, 0.55) 48%,
+      rgba(10, 55, 55, 0.18) 100%
+    );
+  }
+
+  .closing-cta-shell {
+    min-height: clamp(32rem, 55vh, 36.25rem);
+  }
+
+  .closing-cta-title-break {
+    display: block;
+  }
+}
+
+@media (max-width: 767px) {
+  .closing-cta-overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(10, 55, 55, 0.55) 0%,
+      rgba(10, 55, 55, 0.82) 42%,
+      rgba(10, 55, 55, 0.94) 100%
+    );
+  }
+
+  .closing-cta-bg {
+    object-position: 62% center;
   }
 }

@@ -109,11 +109,12 @@ export function HeroSection() {
 
         <Container className="kv-copy w-full">
           <div className="kv-copy-grid">
-            <div className="kv-copy-text min-w-0 max-w-xl">
+            <div className="kv-copy-text min-w-0">
               <p className="kv-eyebrow">THE NEW EV3</p>
-              <h1 className="kv-headline text-balance">EV3, 나다운 일상의 시작.</h1>
+              <h1 className="kv-headline">EV3, 나다운 일상의 시작.</h1>
               <p className="kv-desc">
-                트림부터 계약기간까지, 원하는 조건으로 EV3 장기렌트 견적을 구성해 보세요.
+                트림부터 계약기간까지, 원하는 조건으로 EV3 장기렌트 견적을 구성해{' '}
+                <span className="kv-nowrap">보세요.</span>
               </p>
             </div>
 
