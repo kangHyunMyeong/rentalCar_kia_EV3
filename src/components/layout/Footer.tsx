@@ -130,15 +130,7 @@ export function Footer() {
           </dl>
         </div>
 
-        <div className="mt-8 space-y-2 border-t border-[#D8D8D4] pt-6 md:mt-10">
-          {COMPANY_INFO.disclaimers.map((text) => (
-            <p key={text} className="max-w-3xl text-[0.8rem] leading-relaxed text-[#7A817E] md:text-[0.85rem]">
-              {text}
-            </p>
-          ))}
-        </div>
-
-        <div className="mt-8 flex flex-col gap-4 border-t border-[#D8D8D4] pt-6 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-8 flex flex-col gap-4 border-t border-[#D8D8D4] pt-6 sm:flex-row sm:items-center sm:justify-between md:mt-10">
           <p className="text-[0.85rem] text-[#7A817E]">
             © {year} {COMPANY_INFO.brandNameKo}. All rights reserved.
           </p>

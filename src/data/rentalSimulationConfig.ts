@@ -1,17 +1,10 @@
 import type { AnnualMileage, ContractMonths } from '@/types'
-import type { PricingMeta } from '@/services/pricing/rentalEstimate.types'
 
 /**
- * 개발용 시뮬레이션 가정값.
- * 실제 렌트사 요율이 아니며 simulation 모드에서만 사용합니다.
- * verified 모드에 그대로 적용하지 마세요.
+ * V1 개발용 가정값.
+ * V2에서는 주행거리 차액 추출·보증금 연 할인율에만 사용합니다.
+ * 기준 월 렌트료에 금융·운영비를 중복 가산하지 마세요.
  */
-export const RENTAL_SIMULATION_META: PricingMeta = {
-  pricingVersion: 'sim-dev-2026-03',
-  effectiveDate: '2026-03-01',
-  pricingSource: 'internal-simulation-assumptions',
-  pricingMode: 'simulation',
-}
 
 /** 계약기간별 기본 잔존가치율 */
 export const BASE_RESIDUAL_RATE_BY_TERM: Record<ContractMonths, number> = {

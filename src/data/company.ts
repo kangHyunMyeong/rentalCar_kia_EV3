@@ -15,10 +15,6 @@ export const COMPANY_INFO = {
   /** TODO: EV5 Footer에도 없음 — 확인 후 등록 */
   email: null as string | null,
   tagline: 'EV3 장기렌트 견적·상담',
-  disclaimers: [
-    '본 사이트는 기아 공식 홈페이지가 아닌 핏카컴퍼니에서 운영하는 장기렌트 견적·상담 페이지입니다.',
-    '화면에 표시되는 월 예상 렌트료는 참고용 시뮬레이션 금액이며, 실제 계약 조건 및 금액과 차이가 있을 수 있습니다.',
-  ],
 } as const
 
 /** EV5와 동일하게 모달로 제공하는 정책 콘텐츠 */

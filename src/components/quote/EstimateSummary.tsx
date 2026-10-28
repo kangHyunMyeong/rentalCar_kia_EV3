@@ -88,7 +88,10 @@ export function EstimateSummary({ selection, estimate, onConsult }: EstimateSumm
 
   const showAmount =
     estimate.ok && displayAmount != null && Number.isFinite(displayAmount) && displayAmount >= 0
-  const isSimulation = estimate.meta.pricingMode === 'simulation'
+  const showReferenceNotice =
+    estimate.ok &&
+    (estimate.meta.estimateStatus === 'public_reference' ||
+      estimate.meta.estimateStatus === 'simulation_assumption')
 
   return (
     <aside className="flex h-full min-h-0 flex-col overflow-hidden rounded-[18px] bg-deep-teal text-white">
@@ -138,13 +141,12 @@ export function EstimateSummary({ selection, estimate, onConsult }: EstimateSumm
               약 {formatKRW(displayAmount)}
               <span className="ml-1.5 text-[0.48em] font-medium text-white/85">원 / 월</span>
             </p>
-            {isSimulation ? (
-              <>
-                <p className="mt-1.5 text-sm font-medium text-white/70">참고용 시뮬레이션 금액</p>
-                <p className="mt-1 text-xs leading-relaxed text-white/45">
-                  실제 렌트사 요율과 다를 수 있으며, 정확한 금액은 상담 후 확인해 주세요.
-                </p>
-              </>
+            {showReferenceNotice ? (
+              <p className="mt-2.5 text-xs leading-relaxed text-white/45 md:text-[13px]">
+                표시된 금액은 공개된 참고 견적과 선택하신 계약 조건을 바탕으로 산출한 예상
+                금액입니다. 실제 렌트료는 렌트사별 요율, 보험 조건 및 프로모션 등에 따라 달라질 수
+                있습니다.
+              </p>
             ) : null}
           </>
         ) : (
@@ -156,7 +158,7 @@ export function EstimateSummary({ selection, estimate, onConsult }: EstimateSumm
         <button
           type="button"
           onClick={onConsult}
-          className="group mt-4 flex min-h-12 w-full items-center justify-center gap-2 rounded-[14px] bg-[#F4F1EC] px-5 text-base font-semibold text-deep-teal transition-colors duration-200 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-soft-mint"
+          className="group mt-6 flex min-h-12 w-full items-center justify-center gap-2 rounded-[14px] bg-[#F4F1EC] px-5 text-base font-semibold text-deep-teal transition-colors duration-200 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-soft-mint"
         >
           <span>맞춤 견적 상담 신청하기</span>
           <span

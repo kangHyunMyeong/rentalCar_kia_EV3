@@ -122,18 +122,35 @@ export interface QuoteResult {
   calculatedAt: string
 }
 
+export type EstimateStatus =
+  | 'verified_partner_quote'
+  | 'public_reference'
+  | 'simulation_assumption'
+  | 'consultation_required'
+
 /** 상담 신청 시 첨부하는 시뮬레이션/검증 견적 스냅샷 */
 export interface EstimateLeadSnapshot {
   trimId: TrimId
   vehiclePriceBeforeTax: number | null
   prepaymentPercent: PrepaymentPercent
   depositPercent: DepositPercent
+  /** @deprecated 호환용 — prepaymentPercent와 동일 */
+  prepaymentRate?: PrepaymentPercent
+  /** @deprecated 호환용 — depositPercent와 동일 */
+  depositRate?: DepositPercent
   annualMileage: AnnualMileage
   contractMonths: ContractMonths
+  /** UI·모달 표시용 (100원 반올림) */
   estimatedMonthlyFee: number | null
+  roundedMonthlyRent: number | null
+  rawMonthlyRent: number | null
+  estimateStatus: EstimateStatus
+  referenceSource: string | null
+  referenceVersion: string | null
+  estimateCalculatedAt: string
   pricingMode: 'simulation' | 'verified'
   pricingVersion: string | null
-  /** simulation 계산값이면 true — 실제 계약 견적 아님 */
+  /** public_reference / simulation_assumption 이면 true */
   isSimulation: boolean
 }
 

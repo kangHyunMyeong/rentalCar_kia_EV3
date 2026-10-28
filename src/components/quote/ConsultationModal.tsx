@@ -119,10 +119,20 @@ export function ConsultationModal({
     await mutation.mutateAsync(values)
   })
 
+  const displayFee =
+    estimateSnapshot.roundedMonthlyRent ?? estimateSnapshot.estimatedMonthlyFee
   const feeLabel =
-    estimateSnapshot.estimatedMonthlyFee != null
-      ? `약 ${new Intl.NumberFormat('ko-KR').format(estimateSnapshot.estimatedMonthlyFee)}원 / 월`
-      : '견적 데이터 확인 필요'
+    displayFee != null
+      ? `약 ${new Intl.NumberFormat('ko-KR').format(displayFee)}원 / 월`
+      : estimateSnapshot.estimateStatus === 'consultation_required'
+        ? '상담 후 확인'
+        : '견적 데이터 확인 필요'
+
+  const feeSuffix =
+    estimateSnapshot.estimateStatus === 'public_reference' ||
+    estimateSnapshot.estimateStatus === 'simulation_assumption'
+      ? ' (시뮬레이션)'
+      : ''
 
   const summaryRows = [
     { label: '트림', value: trim?.name ?? selection.trimId },
@@ -132,7 +142,7 @@ export function ConsultationModal({
     { label: '계약기간', value: CONTRACT_LABELS[selection.contractMonths] },
     {
       label: '월 예상 렌트료',
-      value: estimateSnapshot.isSimulation ? `${feeLabel} (시뮬레이션)` : feeLabel,
+      value: `${feeLabel}${feeSuffix}`,
     },
   ]
 
