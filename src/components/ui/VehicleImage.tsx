@@ -32,8 +32,8 @@ export function VehicleImage({
   return (
     <div
       className={[
-        'relative overflow-hidden',
-        mode === 'cutout' ? 'bg-transparent' : 'bg-sculpted-gray/30',
+        'relative',
+        mode === 'cutout' ? 'overflow-visible bg-transparent' : 'overflow-hidden bg-sculpted-gray/30',
         className,
       ].join(' ')}
       data-car-mode={mode}

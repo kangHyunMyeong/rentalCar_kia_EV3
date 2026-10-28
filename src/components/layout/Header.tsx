@@ -31,20 +31,7 @@ function BrandLogo({ onNavigate }: { onNavigate: () => void }) {
         className="text-[17px] font-bold tracking-[-0.03em] text-[#103C3C] sm:text-[20px]"
         style={{ lineHeight: 1 }}
       >
-        핏카
-      </span>
-      <span
-        className="text-[14px] font-normal text-[#A3AAA7] sm:text-[16px]"
-        style={{ lineHeight: 1 }}
-        aria-hidden
-      >
-        -
-      </span>
-      <span
-        className="text-[12.5px] font-medium tracking-[-0.01em] text-[#14282A] sm:text-[14px]"
-        style={{ lineHeight: 1 }}
-      >
-        기아 EV3
+        핏카 - 기아 EV3
       </span>
     </a>
   )
