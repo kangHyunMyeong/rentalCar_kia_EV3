@@ -1,0 +1,32 @@
+:root {
+  /* Sculpted Silver */
+  --color-silver-mist: #ecefee;
+  --color-sculpted-gray: #c9d0d0;
+  --color-deep-teal: #103a3a;
+  --color-soft-mint: #b7dbd2;
+  --color-ink: #0f1a1a;
+  --color-ink-muted: #4a5a5a;
+  --color-surface: #f7f9f8;
+  --color-surface-elevated: #ffffff;
+  --color-border: color-mix(in srgb, var(--color-sculpted-gray) 70%, transparent);
+  --color-danger: #9b2c2c;
+
+  --font-sans: 'Pretendard', 'SUIT', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+
+  --content-max: 1320px;
+  --header-h: 78px;
+  --header-h-mobile: 70px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-pill: 999px;
+
+  --shadow-soft: 0 12px 40px rgba(16, 58, 58, 0.08);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (max-width: 767px) {
+  :root {
+    --header-h: var(--header-h-mobile);
+  }
+}
