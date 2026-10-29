@@ -927,6 +927,13 @@ img {
   margin: 0.35rem 0 0;
 }
 
+.fitcar-trust__demo-note {
+  margin: 0.75rem 0 0;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: rgb(183 219 210 / 0.45);
+}
+
 @media (max-width: 379px) {
   .fitcar-trust__subgrid:not(.is-single) {
     grid-template-columns: 1fr;

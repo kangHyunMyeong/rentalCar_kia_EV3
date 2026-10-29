@@ -130,7 +130,7 @@ export function resolveTrustMetrics(): {
     }
   }
 
-  // live
+  // live — 검증된 수치만 노출. 미등록이면 빈 영역 대신 demo 샘플+고지
   const metrics = METRIC_ORDER.map((id) => ({ ...TRUST_METRICS_LIVE[id] }))
   const displayMetrics = metrics.filter(
     (m) =>
@@ -139,6 +139,17 @@ export function resolveTrustMetrics(): {
       Number.isFinite(m.value) &&
       m.value >= 0,
   )
+
+  if (displayMetrics.length === 0) {
+    const demoMetrics = METRIC_ORDER.map((id) => ({ ...TRUST_METRICS_DEMO[id] }))
+    return {
+      mode: 'demo',
+      meta,
+      metrics: demoMetrics,
+      displayMetrics: demoMetrics,
+      isDemo: true,
+    }
+  }
 
   return {
     mode,

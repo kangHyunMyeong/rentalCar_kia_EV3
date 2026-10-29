@@ -42,7 +42,7 @@ export function FitcarTrustPanel() {
   const rootRef = useRef<HTMLDivElement>(null)
   const countEls = useRef<(HTMLSpanElement | null)[]>([])
   const reduced = usePrefersReducedMotion()
-  const { meta, displayMetrics } = useMemo(() => resolveTrustMetrics(), [])
+  const { meta, displayMetrics, isDemo } = useMemo(() => resolveTrustMetrics(), [])
   const asOfLabel = formatTrustAsOfDate(meta.asOfDate)
 
   const primary = displayMetrics[0] ?? null
@@ -143,6 +143,15 @@ export function FitcarTrustPanel() {
       <div className="fitcar-trust__meta">
         <p>{meta.scopeNote}</p>
         {asOfLabel ? <p className="fitcar-trust__asof">집계 기준일 {asOfLabel}</p> : null}
+        {isDemo ? (
+          <p className="fitcar-trust__demo-note">
+            {meta.demoDisclaimer.split('\n').map((line) => (
+              <span key={line} className="block">
+                {line}
+              </span>
+            ))}
+          </p>
+        ) : null}
       </div>
     </div>
   )
