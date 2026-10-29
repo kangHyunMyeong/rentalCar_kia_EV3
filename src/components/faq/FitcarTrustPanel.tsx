@@ -1,9 +1,5 @@
 import { useEffect, useMemo, useRef } from 'react'
-import {
-  formatTrustAsOfDate,
-  resolveTrustMetrics,
-  type TrustMetricItem,
-} from '@/data/trustMetrics'
+import { resolveTrustMetrics, type TrustMetricItem } from '@/data/trustMetrics'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 
 function formatCount(value: number): string {
@@ -42,8 +38,7 @@ export function FitcarTrustPanel() {
   const rootRef = useRef<HTMLDivElement>(null)
   const countEls = useRef<(HTMLSpanElement | null)[]>([])
   const reduced = usePrefersReducedMotion()
-  const { meta, displayMetrics, isDemo } = useMemo(() => resolveTrustMetrics(), [])
-  const asOfLabel = formatTrustAsOfDate(meta.asOfDate)
+  const { meta, displayMetrics } = useMemo(() => resolveTrustMetrics(), [])
 
   const primary = displayMetrics[0] ?? null
   const secondary = displayMetrics.slice(1)
@@ -139,20 +134,6 @@ export function FitcarTrustPanel() {
       ) : (
         <p className="fitcar-trust__empty">{meta.emptyStateBody}</p>
       )}
-
-      <div className="fitcar-trust__meta">
-        <p>{meta.scopeNote}</p>
-        {asOfLabel ? <p className="fitcar-trust__asof">집계 기준일 {asOfLabel}</p> : null}
-        {isDemo ? (
-          <p className="fitcar-trust__demo-note">
-            {meta.demoDisclaimer.split('\n').map((line) => (
-              <span key={line} className="block">
-                {line}
-              </span>
-            ))}
-          </p>
-        ) : null}
-      </div>
     </div>
   )
 }

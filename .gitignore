@@ -29,3 +29,5 @@ perf-reports/
 *.njsproj
 *.sln
 *.sw?
+
+.vercel
