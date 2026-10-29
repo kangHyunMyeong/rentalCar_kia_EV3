@@ -204,12 +204,12 @@ export function ConsultationModal({
               </Button>
             </div>
           ) : (
-          <form
-            className="space-y-4"
-            onSubmit={onSubmit}
-            noValidate
-            acceptCharset="UTF-8"
-          >
+            <form
+              className="space-y-4"
+              onSubmit={onSubmit}
+              noValidate
+              acceptCharset="UTF-8"
+            >
             <div>
               <label htmlFor="modal-name" className="mb-2 block text-sm font-medium text-[#171B1B]">
                 이름 <span className="text-[#9B2C2C]">*</span>
