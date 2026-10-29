@@ -15,6 +15,10 @@ dist-ssr
 .env.*
 !.env.example
 
+# Local archives / lab reports (not deployed; keep off public/)
+assets-archive/
+perf-reports/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

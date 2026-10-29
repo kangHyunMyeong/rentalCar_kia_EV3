@@ -19,6 +19,7 @@ function HeroBackground({ src }: { src: string }) {
           className="kv-bg-img"
           loading="eager"
           decoding="async"
+          fetchPriority="high"
           onError={() => setFailed(true)}
         />
       ) : null}
@@ -85,7 +86,7 @@ export function HeroSection() {
   }, [reduced])
 
   return (
-    <section id="top" ref={rootRef} className="kv" aria-label="EV3 키 비주얼">
+    <section id="top" ref={rootRef} className="kv" aria-label="기아 EV3 키 비주얼">
       <HeroBackground src={images.kvBg} />
 
       <div className="kv-shell w-full">

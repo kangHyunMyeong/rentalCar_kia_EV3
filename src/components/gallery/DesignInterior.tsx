@@ -154,9 +154,9 @@ export function DesignInterior() {
                   <p className="text-[11px] font-semibold tracking-[0.18em] text-deep-teal/65 uppercase">
                     {block.category}
                   </p>
-                  <p className="mt-2 text-lg font-semibold tracking-tight text-ink md:text-xl">
+                  <h3 className="mt-2 text-lg font-semibold tracking-tight text-ink md:text-xl">
                     {block.title}
-                  </p>
+                  </h3>
                   <p className="mt-2 max-w-md text-[13px] leading-[1.55] text-ink-muted md:text-sm md:leading-[1.6]">
                     {block.description}
                   </p>

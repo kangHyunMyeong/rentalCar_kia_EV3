@@ -102,11 +102,11 @@ export function EstimateSummary({ selection, estimate, onConsult }: EstimateSumm
         <div className="mx-auto mt-3 max-w-[260px]">
           <VehicleImage
             src={EV3_IMAGE_PATHS.kvCar}
-            alt="기아 EV3 대표 이미지"
+            alt="기아 EV3 전면 3/4 컷아웃"
             mode="cutout"
             className="mx-auto"
             imgClassName="mx-auto max-h-36 w-auto object-contain md:max-h-40"
-            fallbackLabel="EV3 대표 이미지"
+            fallbackLabel="EV3 컷아웃 이미지"
           />
           <p className="mt-1.5 pb-1 text-center text-[11px] text-white/45">
             대표 이미지 · 트림별 실제 외관과 다를 수 있습니다

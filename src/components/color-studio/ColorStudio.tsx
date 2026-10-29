@@ -75,13 +75,11 @@ function ColorSwatch({
           ? `0 0 0 2px #F7F9F8, 0 0 0 4px ${color.swatchBorder ?? '#103A3A'}`
           : `inset 0 0 0 1px ${color.swatchBorder ?? 'rgba(0,0,0,0.12)'}`,
       }}
-      aria-label={`${color.name} (${color.code})`}
+      aria-label={`${color.name} 외장 컬러${selected ? ', 선택됨' : ''}`}
       onClick={() => {
         void handleClick()
       }}
-    >
-      <span className="sr-only">{color.name}</span>
-    </button>
+    />
   )
 }
 
@@ -108,9 +106,46 @@ export function ColorStudio() {
   const displayColor = getExteriorColorById(displayId)
   const selectedColor = getExteriorColorById(exteriorColorId)
 
+  /**
+   * 초기 로드에서 전 컬러(약 560KB)를 한꺼번에 받지 않도록,
+   * 컬러 스튜디오 근접 시점에 기본 컬러 우선 → 나머지 순차 preload.
+   * 선택 시 selectColor가 이미 preload를 await하므로 UX 깜빡임은 방지됩니다.
+   */
   useEffect(() => {
-    for (const color of EXTERIOR_COLORS) {
-      void preloadColorImage(color.imageSrc).catch(() => undefined)
+    const root = rootRef.current
+    if (!root) return
+
+    let cancelled = false
+    let started = false
+
+    const preloadNearViewport = async () => {
+      if (cancelled || started) return
+      started = true
+      const preferredId = useQuoteStore.getState().exteriorColorId
+      const ordered = [
+        ...EXTERIOR_COLORS.filter((c) => c.id === preferredId),
+        ...EXTERIOR_COLORS.filter((c) => c.id !== preferredId),
+      ]
+      for (const color of ordered) {
+        if (cancelled) return
+        await preloadColorImage(color.imageSrc).catch(() => undefined)
+      }
+    }
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          void preloadNearViewport()
+          io.disconnect()
+        }
+      },
+      { rootMargin: '240px 0px', threshold: 0.01 },
+    )
+    io.observe(root)
+
+    return () => {
+      cancelled = true
+      io.disconnect()
     }
   }, [])
 
@@ -286,7 +321,7 @@ export function ColorStudio() {
           onComplete: () => {
             if (seq !== requestSeq.current) return
             baseImg.src = nextMeta.imageSrc
-            baseImg.alt = `${nextMeta.name} 외장 컬러 EV3`
+            baseImg.alt = `기아 EV3 ${nextMeta.name} 외장 컬러`
             gsap.set(baseImg, { opacity: 1, scale: 1, y: 0 })
             gsap.set(nextImg, { opacity: 0, scale: 1, y: 0 })
             setBaseId(nextId)
@@ -336,12 +371,13 @@ export function ColorStudio() {
             <img
               ref={baseImgRef}
               src={baseColor.imageSrc}
-              alt={`${baseColor.name} 외장 컬러 EV3`}
+              alt={`기아 EV3 ${baseColor.name} 외장 컬러`}
               width={1600}
               height={900}
               className="absolute inset-0 h-full w-full object-contain object-center will-change-transform"
               decoding="async"
-              loading="eager"
+              loading="lazy"
+              fetchPriority="low"
               draggable={false}
             />
             <img
@@ -354,6 +390,8 @@ export function ColorStudio() {
               className="pointer-events-none absolute inset-0 h-full w-full object-contain object-center will-change-transform"
               style={{ opacity: 0 }}
               decoding="async"
+              loading="lazy"
+              fetchPriority="low"
               draggable={false}
             />
           </div>
