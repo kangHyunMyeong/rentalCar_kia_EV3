@@ -178,11 +178,6 @@ export function ConsultationModal({
         </div>
 
         <div className="space-y-5 px-5 py-5">
-          <div className="rounded-[14px] border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-950">
-            시연 모드: 상담 신청 API가 연결되지 않았습니다. 제출해도 실제 접수는 이루어지지 않으며,
-            개인정보는 localStorage에 저장되지 않습니다.
-          </div>
-
           <div className="rounded-[14px] border border-[#E2E0DB] bg-white p-4">
             <p className="text-sm font-medium text-deep-teal">선택한 견적 조건</p>
             <dl className="mt-3 space-y-2">
@@ -195,7 +190,26 @@ export function ConsultationModal({
             </dl>
           </div>
 
-          <form className="space-y-4" onSubmit={onSubmit} noValidate>
+          {mutation.isSuccess && mutation.data.accepted ? (
+            <div
+              className="rounded-[14px] border border-[#C5D9D4] bg-[#EEF6F4] px-4 py-4 text-sm leading-relaxed text-deep-teal"
+              role="status"
+            >
+              <p className="font-semibold">상담 신청이 접수되었습니다.</p>
+              <p className="mt-1.5 text-[#3D5550]">
+                담당자가 선택하신 조건을 확인한 뒤 연락드리겠습니다.
+              </p>
+              <Button type="button" size="lg" className="mt-4 w-full" onClick={onClose}>
+                확인
+              </Button>
+            </div>
+          ) : (
+          <form
+            className="space-y-4"
+            onSubmit={onSubmit}
+            noValidate
+            acceptCharset="UTF-8"
+          >
             <div>
               <label htmlFor="modal-name" className="mb-2 block text-sm font-medium text-[#171B1B]">
                 이름 <span className="text-[#9B2C2C]">*</span>
@@ -284,13 +298,15 @@ export function ConsultationModal({
 
             <div aria-live="polite" className="min-h-6 text-sm">
               {mutation.isError ? (
-                <p className="text-[#9B2C2C]">제출 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.</p>
-              ) : null}
-              {mutation.isSuccess ? (
-                <p className="text-deep-teal">{mutation.data.message}</p>
+                <p className="text-[#9B2C2C]" role="alert">
+                  {mutation.error instanceof Error
+                    ? mutation.error.message
+                    : '제출 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.'}
+                </p>
               ) : null}
             </div>
           </form>
+          )}
         </div>
       </div>
     </div>
