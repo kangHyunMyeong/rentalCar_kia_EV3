@@ -79,7 +79,7 @@ export function Footer() {
   ]
 
   return (
-    <footer className="border-t border-[#D8D8D4] bg-[#F5F4F0] text-[#14282A]">
+    <footer id="site-footer" className="border-t border-[#D8D8D4] bg-[#F5F4F0] text-[#14282A]">
       <Container className="max-w-[1280px] px-5 py-12 md:px-12 md:py-16 lg:px-16 lg:py-20">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,0.38fr)_minmax(0,0.62fr)] lg:gap-16">
           <div>

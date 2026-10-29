@@ -1,5 +1,6 @@
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
+import { FloatingEstimateBar } from '@/components/layout/FloatingEstimateBar'
 import { HeroSection } from '@/components/hero/HeroSection'
 import { WhyEv3 } from '@/components/features/WhyEv3'
 import { DesignInterior } from '@/components/gallery/DesignInterior'
@@ -25,6 +26,7 @@ export default function App() {
         <ClosingConsultationCta />
       </main>
       <Footer />
+      <FloatingEstimateBar />
     </>
   )
 }

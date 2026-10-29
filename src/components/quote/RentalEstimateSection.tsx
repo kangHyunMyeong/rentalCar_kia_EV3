@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import { Container } from '@/components/ui/Container'
 import {
   CONTRACT_LABELS,
@@ -30,7 +30,6 @@ import { SegmentedControl } from './SegmentedControl'
 export function RentalEstimateSection() {
   const rootRef = useRef<HTMLElement>(null)
   const reduced = usePrefersReducedMotion()
-  const [mobileCtaVisible, setMobileCtaVisible] = useState(true)
 
   const trimId = useQuoteStore((s) => s.trimId)
   const prepaymentPercent = useQuoteStore((s) => s.prepaymentPercent)
@@ -104,20 +103,6 @@ export function RentalEstimateSection() {
       ctx?.revert()
     }
   }, [reduced])
-
-  useEffect(() => {
-    const section = rootRef.current
-    if (!section) return
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setMobileCtaVisible(entry.isIntersecting && entry.intersectionRatio > 0.12)
-      },
-      { threshold: [0, 0.12, 0.25] },
-    )
-    observer.observe(section)
-    return () => observer.disconnect()
-  }, [])
 
   return (
     <section
@@ -256,20 +241,6 @@ export function RentalEstimateSection() {
           </div>
         </div>
       </Container>
-
-      {/* 모바일 sticky CTA — 섹션 가시 범위에서만, 요약 패널과 겹치지 않도록 하단 여백 확보 */}
-      {mobileCtaVisible ? (
-        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[#E2E0DB] bg-[#F4F3F0]/95 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-md lg:hidden">
-          <button
-            type="button"
-            className="flex min-h-12 w-full items-center justify-center gap-2 rounded-[14px] bg-deep-teal px-5 font-semibold text-white"
-            onClick={openConsultationModal}
-          >
-            맞춤 견적 상담 신청하기 →
-          </button>
-        </div>
-      ) : null}
-      <div className="h-16 lg:hidden" aria-hidden />
 
       <ConsultationModal
         open={modalOpen}

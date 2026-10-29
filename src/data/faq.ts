@@ -38,7 +38,7 @@ export const FAQ_ITEMS: FaqItem[] = [
 ]
 
 export const FAQ_SECTION_COPY = {
-  eyebrow: '06 / FREQUENTLY ASKED QUESTIONS',
+  eyebrow: 'FREQUENTLY ASKED QUESTIONS',
   headline: '궁금한 점을\n확인해 보세요.',
   description:
     'EV3 장기렌트에 대해 자주 묻는 질문을 모았습니다.\n더 궁금한 점은 상담을 통해 안내해 드립니다.',
