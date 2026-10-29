@@ -32,6 +32,7 @@ export function RentalEstimateSection() {
   const reduced = usePrefersReducedMotion()
 
   const trimId = useQuoteStore((s) => s.trimId)
+  const exteriorColorId = useQuoteStore((s) => s.exteriorColorId)
   const prepaymentPercent = useQuoteStore((s) => s.prepaymentPercent)
   const depositPercent = useQuoteStore((s) => s.depositPercent)
   const annualMileage = useQuoteStore((s) => s.annualMileage)
@@ -52,8 +53,17 @@ export function RentalEstimateSection() {
       depositPercent,
       annualMileage,
       contractMonths,
+      /** Color Studio 선택 — V5 월할 반영용(UI 레이아웃 변경 없음) */
+      exteriorColorId,
     }),
-    [trimId, prepaymentPercent, depositPercent, annualMileage, contractMonths],
+    [
+      trimId,
+      prepaymentPercent,
+      depositPercent,
+      annualMileage,
+      contractMonths,
+      exteriorColorId,
+    ],
   )
 
   const pricingMode = getActivePricingMode()

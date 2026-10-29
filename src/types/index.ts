@@ -94,13 +94,20 @@ export interface QuoteCombinationRule {
   }>
 }
 
-/** 사용자가 선택한 견적 조건 (외장 컬러 제외) */
+/** 사용자가 선택한 견적 조건 */
 export interface QuoteSelection {
   trimId: TrimId
   prepaymentPercent: PrepaymentPercent
   depositPercent: DepositPercent
   annualMileage: AnnualMileage
   contractMonths: ContractMonths
+  /**
+   * V5 예상 견적용 선택 필드(optional).
+   * 상담 리드 기본 페이로드에는 포함하지 않을 수 있음.
+   */
+  exteriorColorId?: ExteriorColorId
+  /** V5 옵션 월할용. UI에 옵션 선택기가 없으면 미전달 */
+  selectedOptionIds?: import('@/data/ev3OptionPriceBook').Ev3OptionId[]
 }
 
 export type QuoteResultStatus =

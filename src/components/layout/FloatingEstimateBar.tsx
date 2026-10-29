@@ -72,6 +72,7 @@ function useFloatingBarVisible(modalOpen: boolean): boolean {
 export function FloatingEstimateBar() {
   const reduced = usePrefersReducedMotion()
   const trimId = useQuoteStore((s) => s.trimId)
+  const exteriorColorId = useQuoteStore((s) => s.exteriorColorId)
   const prepaymentPercent = useQuoteStore((s) => s.prepaymentPercent)
   const depositPercent = useQuoteStore((s) => s.depositPercent)
   const annualMileage = useQuoteStore((s) => s.annualMileage)
@@ -88,8 +89,16 @@ export function FloatingEstimateBar() {
       depositPercent,
       annualMileage,
       contractMonths,
+      exteriorColorId,
     }),
-    [trimId, prepaymentPercent, depositPercent, annualMileage, contractMonths],
+    [
+      trimId,
+      prepaymentPercent,
+      depositPercent,
+      annualMileage,
+      contractMonths,
+      exteriorColorId,
+    ],
   )
 
   const estimate = useMemo(

@@ -18,6 +18,8 @@ export function useQuotePricing(selection: QuoteSelection) {
         selection.depositPercent,
         selection.annualMileage,
         selection.contractMonths,
+        selection.exteriorColorId ?? '',
+        (selection.selectedOptionIds ?? []).join(','),
       ].join('|'),
     [selection],
   )

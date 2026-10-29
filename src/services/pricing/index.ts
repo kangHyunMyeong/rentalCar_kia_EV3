@@ -14,6 +14,12 @@ export async function createPricingProvider(): Promise<QuotePricingProvider> {
     return new ConsultationRequiredPricingProvider()
   }
 
+  const { isV5LocalEnabled } = await import('./v5/featureFlag')
+  if (isV5LocalEnabled()) {
+    const { V5PricingProvider } = await import('./v5/V5PricingProvider')
+    return new V5PricingProvider()
+  }
+
   const { SimulationPricingProvider } = await import('./SimulationPricingProvider')
   return new SimulationPricingProvider()
 }
@@ -25,6 +31,11 @@ export {
   resolveRentalEstimate,
   roundMonthlyRent,
 } from './calculateRentalEstimate'
+export {
+  calculateV5RentalEstimate,
+  calculateV5FromQuoteSelection,
+  isV5LocalEnabled,
+} from './v5'
 export { toEstimateLeadSnapshot } from './toEstimateLeadSnapshot'
 export type {
   EstimateStatus,

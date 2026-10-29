@@ -13,6 +13,9 @@ import type {
   RentalEstimateBreakdown,
   RentalEstimateResult,
 } from './rentalEstimate.types'
+import { calculateV5FromQuoteSelection } from './v5/calculator'
+import { isV5LocalEnabled } from './v5/featureFlag'
+import { toRentalEstimateResultFromV5 } from './v5/toRentalEstimateResult'
 
 const DATA_REQUIRED_MESSAGE = '견적 데이터 확인 필요'
 const UNLIMITED_MESSAGE = '무제한 주행 조건은 상담 후 확인'
@@ -161,12 +164,27 @@ export function calculateRentalEstimate(selection: QuoteSelection): RentalEstima
 /**
  * pricingMode에 따라 견적을 해석합니다.
  * verified 모드에서는 public_reference·simulation 가정값을 사용하지 않습니다.
+ *
+ * DEV + VITE_PRICING_ENGINE=v5 일 때만 V5를 사용합니다.
+ * 운영(PROD) 및 플래그 미설정 시 기존 V2(`calculateRentalEstimate`) 경로입니다.
+ * V2 계산식 자체는 변경하지 않습니다.
  */
 export function resolveRentalEstimate(
   selection: QuoteSelection,
   pricingMode: PricingMode,
 ): RentalEstimateResult {
   if (pricingMode === 'verified') {
+    if (import.meta.env.DEV) {
+      // STEP9 임시 진단 — DEV 전용
+      console.info('[pricing-diag]', {
+        requestedEngine: import.meta.env.VITE_PRICING_ENGINE ?? '(unset)',
+        resolvedEngine: 'none (verified mode)',
+        DEV: import.meta.env.DEV,
+        pricingMode,
+        trimId: selection.trimId,
+        contractMonths: selection.contractMonths,
+      })
+    }
     return {
       ok: false,
       code: 'VERIFIED_RATE_UNAVAILABLE',
@@ -179,6 +197,24 @@ export function resolveRentalEstimate(
         estimateStatus: 'consultation_required',
       },
     }
+  }
+
+  const useV5 = isV5LocalEnabled()
+  if (import.meta.env.DEV) {
+    // STEP9 임시 진단 — DEV 전용 (엔진 선택·실제 경로 확인용)
+    console.info('[pricing-diag]', {
+      requestedEngine: import.meta.env.VITE_PRICING_ENGINE ?? '(unset)',
+      resolvedEngine: useV5 ? 'v5' : 'v2',
+      DEV: import.meta.env.DEV,
+      pricingMode,
+      trimId: selection.trimId,
+      contractMonths: selection.contractMonths,
+      exteriorColorId: selection.exteriorColorId ?? null,
+    })
+  }
+
+  if (useV5) {
+    return toRentalEstimateResultFromV5(calculateV5FromQuoteSelection(selection))
   }
 
   return calculateRentalEstimate(selection)
